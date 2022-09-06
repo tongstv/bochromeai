@@ -33,7 +33,7 @@ function generateUUID() { // Public Domain/MIT
 async function checkconnect() {
 
 
-    let autoref=0;
+    let autoref = 0;
     var req = new XMLHttpRequest();
     req.timeout = 10000;
     req.open("GET", web); // false for synchronous request
@@ -45,21 +45,20 @@ async function checkconnect() {
             setInterval(() => {
 
                 let intrade = localStorage.getItem("intrade");
-                if (intrade !==1) {
+                if (intrade !== 1) {
 
 
                     get(window.conf.web + "/api/wallet/binaryoption/transaction/open?page=1&size=10&betAccountType=DEMO", 10000).then((json) => {
 
                         autoref++;
-                        if(autoref > 20)
-                        {
-                            autoref=0;
+                        if (autoref > 20) {
+                            autoref = 0;
 
                             chrome.runtime.reload();
                         }
 
                         console.log("auto refet")
-                         //sendsms(JSON.stringify(json))
+                        //sendsms(JSON.stringify(json))
                     })
                 }
 
@@ -222,7 +221,7 @@ async function gettoken() {
                 "lot_number": "",
                 "pass_token": ""
             },
-            "client_id": capcha.client_id,
+            "client_id": window.conf.client_id,
             "email": window.conf.email,
             "grant_type": "password",
             "password": window.conf.password
@@ -545,7 +544,7 @@ async function get(url, timeout = 10000) {
 
             if (xhr.readyState === 4 && xhr.status === 401) {
 
-              await reftoken()
+                await reftoken()
 
 
             }
@@ -659,6 +658,7 @@ var lan = 0;
 
 async function trade(url, json) {
 
+    let lan =0;
     return new Promise(async function (resolve, reject) {
         var xhr = new XMLHttpRequest();
 
@@ -675,21 +675,12 @@ async function trade(url, json) {
             }
             if (xhr.readyState === 4 && xhr.status === 401) {
 
-
                 lan++;
-                if (lan === 1) {
-                    await reftoken();
-                    trade(url, json);
-                } else if (lan === 2) {
 
-                    await sock5s(window.conf.sock5);
-                    trade(url, json);
-
-                } else if (lan >= 3) {
-
+                if(lan ===1)
+                {
                     await gettoken();
                     trade(url, json);
-
                 }
 
 
