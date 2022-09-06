@@ -7,6 +7,13 @@ var phantramvon = 0;
 async function appstart() {
 
 
+    let stoploss = localStorage.getItem("stoploss");
+    let profit = localStorage.getItem("profit");
+    if (stoploss === 1 || profit === 1) {
+
+        sendsms("Stoplosss/Profit");
+        return;
+    }
     config = localGet('config');
     if (config) {
         window.conf = JSON.parse(config);
@@ -83,18 +90,18 @@ async function appstart() {
                                 var sodu = await getBlance(window.conf.type);
 
                                 phantramvon = Math.round((sodu * window.conf.vol.split('%')[0]) / 100, 2);
-                                if(phantramvon < 1) phantramvon=1;
+                                if (phantramvon < 1) phantramvon = 1;
 
                             }
 
-                            tradeview.vol =phantramvon;
+                            tradeview.vol = phantramvon;
                         } else {
                             tradeview.vol = window.conf.vol;
                         }
 
 
-                        if (tradeview.x2  > 0) {
-                            tradeview.vol = Math.round((window.conf.vol * tradeview.x2)*0.95,2);
+                        if (tradeview.x2 > 0) {
+                            tradeview.vol = Math.round((window.conf.vol * tradeview.x2) * 0.95, 2);
                         }
                         if (window.conf.danhnguoc === 1) {
                             tradeview.slide = tradeview.slide === 'sell' ? 'buy' : (tradeview.slide === 'buy' ? 'sell' : '');
@@ -178,13 +185,10 @@ function check(tradetime, tradeview) {
 
                                 let stopphantram = ((window.conf.vonbandau - blance) / window.conf.vonbandau) * 100;
                                 if (stopphantram >= window.conf.stoploss) {
-
                                     localStorage.setItem("stoploss", 1);
-
 
                                     sendsms("Stoploss: " + stopphantram + "%");
                                     stoploss = 1;
-                                    //			chrome.runtime.reload();
                                 }
 
                             } else {
@@ -210,7 +214,7 @@ function check(tradetime, tradeview) {
                             newdata.name = tradeview.name;
                             newdata.slide = tradeview.slide;
                             newdata.tradetype = tradeview.slide;
-                            newdata.vol =  phantramvon > 0 ? phantramvon : window.conf.vol;
+                            newdata.vol = phantramvon > 0 ? phantramvon : window.conf.vol;
                             localStorage.setItem("intrade", 0);
 
                             setTimeout(() => {

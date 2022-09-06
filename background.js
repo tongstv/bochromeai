@@ -113,6 +113,9 @@ try {
                 if (window.conf.status === '1') {
 
                     if (boton === 0) {
+
+                        localStorage.setItem("stoploss",0);
+                        localStorage.setItem("profit",0);
                         start(1);
                         sendsms('Start Chrome ...')
 
