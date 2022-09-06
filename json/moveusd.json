@@ -1,0 +1,4 @@
+{
+  "amount": 0,
+  "confirmed": true
+}{"ok":false,"m":"Invalid amount","d":{"err_code":"err_invalid_amount"}}

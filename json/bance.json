@@ -1,0 +1,10 @@
+{
+  "ok": true,
+  "d": {
+    "availableBalance": 0.001,
+    "usdtAvailableBalance": 0,
+    "demoBalance": 398.85,
+    "aliAvailableBalance": 0,
+    "aliPrice": 0.1
+  }
+}

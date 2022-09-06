@@ -1,0 +1,75 @@
+{
+  "ok": true,
+  "d": {
+    "t": 0,
+    "p": 1,
+    "s": 5,
+    "c": [
+      {
+        "transactionId": "5100a64d-4e9b-47ff-b360-eb5154c73231",
+        "userId": 1645802783769,
+        "betAmount": 100,
+        "winAmount": 0,
+        "betType": "UP",
+        "tradeType": null,
+        "currencyType": "BTC",
+        "result": "LOSE",
+        "basePrice": 20021.52,
+        "closePrice": 20013.19,
+        "createdDatetime": 1661685093530
+      },
+      {
+        "transactionId": "82949b5f-1d21-4976-aae9-e52f58c7fc21",
+        "userId": 1645802783769,
+        "betAmount": 100,
+        "winAmount": 0,
+        "betType": "UP",
+        "tradeType": null,
+        "currencyType": "BTC",
+        "result": "LOSE",
+        "basePrice": 20021.52,
+        "closePrice": 20013.19,
+        "createdDatetime": 1661685093040
+      },
+      {
+        "transactionId": "9d798c67-f273-4cd2-b722-ad56c2d60b6e",
+        "userId": 1645802783769,
+        "betAmount": 100,
+        "winAmount": 0,
+        "betType": "UP",
+        "tradeType": null,
+        "currencyType": "BTC",
+        "result": "LOSE",
+        "basePrice": 20021.52,
+        "closePrice": 20013.19,
+        "createdDatetime": 1661685091413
+      },
+      {
+        "transactionId": "d47647f4-f853-4d04-8510-ab4d23b49877",
+        "userId": 1645802783769,
+        "betAmount": 100,
+        "winAmount": 0,
+        "betType": "UP",
+        "tradeType": null,
+        "currencyType": "BTC",
+        "result": "LOSE",
+        "basePrice": 20021.52,
+        "closePrice": 20013.19,
+        "createdDatetime": 1661685090743
+      },
+      {
+        "transactionId": "38f3cee3-4949-44ee-b2f4-52699c0df418",
+        "userId": 1645802783769,
+        "betAmount": 100,
+        "winAmount": 0,
+        "betType": "UP",
+        "tradeType": null,
+        "currencyType": "BTC",
+        "result": "LOSE",
+        "basePrice": 20019.02,
+        "closePrice": 20016.07,
+        "createdDatetime": 1661685052527
+      }
+    ]
+  }
+}

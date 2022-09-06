@@ -1,0 +1,13 @@
+{
+  "ok": true,
+  "d": {
+    "access_token": "eyJhbGciOiJIUzI1NiIsImtpZCI6ImRlbmlleC5jb20iLCJ0eXAiOiJKV1QifQ.eyJ1aWQiOiIxNjYwMzc1OTQwNjA0IiwiZW1haWwiOiJmeDIwMjIxNUBnbWFpbC5jb20iLCJzaWQiOiJkYzA1Mzk1Ny04ZWY3LTQ3NDUtOTUxZi05ZmQ4ZjFiZDJjNWIiLCJkX2lkIjoiQnJvd3NlciBvbiBXaW5kb3dzIDguMS8yYjM5NjU5MS1mM2YxLTQwMDgtYWU5NC00NzBlYmQ0OWIyNzEiLCJuaWNrX25hbWUiOiJmeDIwMjIxNSIsInNfZ3JvdXAiOiIyIiwic3lzdGVtIjoiZGVuaWV4LXdlYiIsImV4cCI6MTY2MTkyODEzOSwiaXNzIjoiZGVuaWV4LmNvbSIsImF1ZCI6ImRlbmlleC13ZWIifQ.rSxTIrbNWEZWvIqsTMSuA6F3Ybmr2POM7PZlGEr5kb0",
+    "refresh_token": "eyJhbGciOiJIUzI1NiIsImtpZCI6ImRlbmlleC5jb20iLCJ0eXAiOiJKV1QifQ.eyJ1aWQiOiIxNjYwMzc1OTQwNjA0IiwiZF9pZCI6IkJyb3dzZXIgb24gV2luZG93cyA4LjEvMmIzOTY1OTEtZjNmMS00MDA4LWFlOTQtNDcwZWJkNDliMjcxIiwiZW1haWwiOiJmeDIwMjIxNUBnbWFpbC5jb20iLCJzaWQiOiIyYjM5NjU5MS1mM2YxLTQwMDgtYWU5NC00NzBlYmQ0OWIyNzEiLCJzeXN0ZW0iOiJkZW5pZXgtd2ViIiwiZXhwIjoxNjYxOTI5NjM5LCJpc3MiOiJkZW5pZXguY29tIiwiYXVkIjoiZGVuaWV4LXdlYiJ9.DG62Pc74SUDQB2r-cm_fxQ3AsKdAshdMICKXqtZNQ3A",
+    "country": {
+      "code": "VN",
+      "name": "Vietnam"
+    },
+    "required_change_nickname": false
+  }
+}
+
