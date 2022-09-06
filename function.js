@@ -567,8 +567,9 @@ async function get(url, timeout = 10000) {
             }
 
         };
+        xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem('token').trim())
         xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem('token'))
+
 
         xhr.send()
 
