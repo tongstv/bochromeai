@@ -222,7 +222,7 @@ async function gettoken() {
                 "lot_number": "",
                 "pass_token": ""
             },
-            "client_id": window.conf.client_id,
+            "client_id": capcha.client_id,
             "email": window.conf.email,
             "grant_type": "password",
             "password": window.conf.password

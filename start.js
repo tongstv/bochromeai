@@ -47,7 +47,7 @@ async function appstart() {
     // console.log(xuid);
 
 
-    socket.on(xuid, async function (from, tradeview) {
+    socket.on(xuid, async function(from, tradeview) {
 
         if (window.conf.token !== '') {
 
@@ -107,7 +107,7 @@ async function appstart() {
                             tradeview.slide = tradeview.slide === 'sell' ? 'buy' : (tradeview.slide === 'buy' ? 'sell' : '');
                         }
 
-                        slide(tradeview.slide, tradeview.vol, tradeview.tradetype).then(function (res) {
+                        slide(tradeview.slide, tradeview.vol, tradeview.tradetype).then(function(res) {
 
 
                             if (_has(res, "ok") && res.ok !== false) {
@@ -116,7 +116,7 @@ async function appstart() {
                                 blance = "";
                                 d = new Date();
                                 sendsms(datetime() + ' | ' + tradeview.slide + ' | ' + tradeview.vol + '$ | Live: ' + tradeview.tradetype);
-                                setTimeout(function () {
+                                setTimeout(function() {
                                     sendsms('Wait 30s ...');
                                 }, 1000);
                                 tradetime = res.d.time;
@@ -145,9 +145,9 @@ function check(tradetime, tradeview) {
 
 
     setTimeout(() => {
-        return new Promise(async function (resolve, reject) {
+        return new Promise(async function(resolve, reject) {
 
-            var getclose = setInterval(async function () {
+            var getclose = setInterval(async function() {
 
 
                 //  console.log("Check win loss" + tradetime);
