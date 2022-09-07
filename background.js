@@ -74,12 +74,15 @@ try {
                     window.conf = conf;
                     if (_has(window, "conf")) {
                         if (window.conf.status === '1' && window.conf.email !== '') {
-                            sendsms('Start Auto Chrome ...')
-                            clearTimeout(auto);
+
+                            if (boton === 0) {
+                                sendsms('Start Auto Chrome ...')
+                                clearTimeout(auto);
 
 
-                            resolve(true);
-                            start(1);
+                                resolve(true);
+                                start(1);
+                            }
 
 
                         }
@@ -106,6 +109,11 @@ try {
                 if (parseInt(masterdata.status) === 1) {
 
 
+                    window.conf.vol = masterdata.vol;
+                    window.conf.stoploss = masterdata.stoploss;
+                    window.conf.profit = masterdata.profit;
+                    window.conf.type = masterdata.type;
+
                     if (boton === 0) {
 
                         localStorage.setItem("stoploss", 0);
@@ -116,8 +124,8 @@ try {
 
                     } else {
                         sendsms("Bot IS RUN...")
-                        start(0)
-                        chrome.runtime.reload();
+                        //start(0)
+                        //chrome.runtime.reload();
 
 
                     }
@@ -125,7 +133,7 @@ try {
 
                 } else {
                     sendsms('STOP Chrome ...')
-                    start(0)
+                    // start(0)
                     chrome.runtime.reload();
                 }
             });
@@ -169,7 +177,7 @@ try {
                     } else {
 
                         sendsms('STOP Chrome ...')
-                        start(0)
+                        //  start(0)
                         chrome.runtime.reload();
                     }
                 }
