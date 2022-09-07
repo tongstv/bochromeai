@@ -42,27 +42,7 @@ async function checkconnect() {
     req.onreadystatechange = async () => {
         if (req.readyState === 4 && req.status === 200) {
 
-            setInterval(() => {
 
-                let intrade = localStorage.getItem("intrade");
-                if (intrade !== 1) {
-
-
-                    get(window.conf.web + "/api/wallet/binaryoption/transaction/open?page=1&size=10&betAccountType=DEMO", 10000).then((json) => {
-
-                        autoref++;
-                        if (autoref > 20) {
-                            autoref = 0;
-
-                            chrome.runtime.reload();
-                        }
-
-                        console.log("auto refet")
-                        //sendsms(JSON.stringify(json))
-                    })
-                }
-
-            }, 62000)
             await appstart()
 
 
@@ -326,7 +306,7 @@ async function reftoken() {
                 "lot_number": "",
                 "pass_token": ""
             },
-            "client_id": "deniex-web",
+            "client_id": window.conf.client_id,
             "grant_type": "refresh_token",
             "refresh_token": localStorage.getItem('refresh_token')
         }
@@ -602,7 +582,6 @@ async function post(url, data, timeout = 10000) {
 }
 
 
-
 async function urlGet(url) {
     var req = new XMLHttpRequest();
     req.open("GET", url); // false for synchronous request
@@ -661,7 +640,7 @@ var lan = 0;
 
 async function trade(url, json) {
 
-    let lan = 0;
+    var lan = 0;
     return new Promise(async function (resolve, reject) {
         var xhr = new XMLHttpRequest();
 
@@ -681,7 +660,7 @@ async function trade(url, json) {
                 lan++;
 
                 if (lan === 1) {
-                    await gettoken();
+                    await reftoken();
                     trade(url, json);
                 }
 

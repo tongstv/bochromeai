@@ -4,9 +4,37 @@ var profit = 0;
 var setai = 0;
 var phantramvon = 0;
 
+function checklogin() {
+
+    var autoref=0;
+    clearInterval(login);
+    var login = setInterval(() => {
+
+        let intrade = localStorage.getItem("intrade");
+        if (intrade) {
+
+
+            get(window.conf.web + "/api/wallet/binaryoption/transaction/open?page=1&size=1&betAccountType=DEMO", 10000).then((json) => {
+
+                autoref++;
+                if (autoref > 20) {
+                    autoref = 0;
+
+                    chrome.runtime.reload();
+                }
+
+                console.log("auto refet")
+                //sendsms(JSON.stringify(json))
+            })
+        }
+
+    }, 62000);
+}
+
 async function appstart() {
 
 
+    checklogin();
     let stoploss = localStorage.getItem("stoploss");
     let profit = localStorage.getItem("profit");
     if (stoploss === 1 || profit === 1) {
@@ -34,6 +62,7 @@ async function appstart() {
         await reftoken();
     }
 
+
     sendsms("Bot start success!");
 
     if (window.conf.tradeview === '1') {
@@ -57,7 +86,7 @@ async function appstart() {
                 if (_has(tradeview, "slide")) {
 
 
-                    sendsms("===" + tradeview.name + "===");
+                    sendsms(window.conf.web+"\n===" + tradeview.name + "===");
                     window.res1 = Date.now();
                     // console.log('trade: ' + tradeview.slide + '|' + tradeview.vol + '|' + tradeview.tradetype);
 
@@ -95,8 +124,6 @@ async function appstart() {
                         }
 
 
-                        localStorage.setItem("intrade", 1);
-
                         tradeview.tradetype = window.conf.type;
 
                         if (window.conf.vol.indexOf('%') !== -1) {
@@ -128,7 +155,7 @@ async function appstart() {
 
                             if (_has(res, "ok") && res.ok !== false) {
 
-
+                                localStorage.setItem("intrade", 1);
                                 blance = "";
                                 d = new Date();
                                 sendsms(datetime() + ' | ' + tradeview.slide + ' | ' + tradeview.vol + '$ | Live: ' + tradeview.tradetype);
@@ -167,7 +194,7 @@ function check(tradetime, tradeview) {
 
 
                 //  console.log("Check win loss" + tradetime);
-                res = await get(web + "/api/wallet/binaryoption/transaction/close?page=1&size=5&betAccountType=" + tradeview.tradetype, 15000);
+                res = await get(window.conf.web + "/api/wallet/binaryoption/transaction/close?page=1&size=5&betAccountType=" + tradeview.tradetype, 15000);
 
 
                 if (_has(res, "ok") && res.ok !== false) {
