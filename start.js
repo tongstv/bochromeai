@@ -103,7 +103,7 @@ async function appstart() {
                         if (tradeview.x2 > 0) {
                             tradeview.vol = Math.round((window.conf.vol * tradeview.x2) * 0.95, 2);
                         }
-                        if (window.conf.danhnguoc === 1) {
+                        if (window.conf.danhnguoc === '1') {
                             tradeview.slide = tradeview.slide === 'sell' ? 'buy' : (tradeview.slide === 'buy' ? 'sell' : '');
                         }
 
