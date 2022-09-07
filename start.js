@@ -47,7 +47,7 @@ async function appstart() {
     // console.log(xuid);
 
 
-    socket.on(xuid, async function(from, tradeview) {
+    socket.on(xuid, async function (from, tradeview) {
 
         if (window.conf.token !== '') {
 
@@ -89,7 +89,7 @@ async function appstart() {
                             if (phantramvon === 0) {
                                 var sodu = await getBlance(window.conf.type);
 
-                                phantramvon = Math.round((sodu * window.conf.vol.split('%')[0]) / 100, 2);
+                                phantramvon = Math.round((sodu * parseInt(window.conf.vol) / 100), 2);
                                 if (phantramvon < 1) phantramvon = 1;
 
                             }
@@ -103,11 +103,11 @@ async function appstart() {
                         if (tradeview.x2 > 0) {
                             tradeview.vol = Math.round((window.conf.vol * tradeview.x2) * 0.95, 2);
                         }
-                        if (window.conf.danhnguoc === '1') {
+                        if (parseInt(window.conf.danhnguoc) === 1) {
                             tradeview.slide = tradeview.slide === 'sell' ? 'buy' : (tradeview.slide === 'buy' ? 'sell' : '');
                         }
 
-                        slide(tradeview.slide, tradeview.vol, tradeview.tradetype).then(function(res) {
+                        slide(tradeview.slide, tradeview.vol, tradeview.tradetype).then(function (res) {
 
 
                             if (_has(res, "ok") && res.ok !== false) {
@@ -116,7 +116,7 @@ async function appstart() {
                                 blance = "";
                                 d = new Date();
                                 sendsms(datetime() + ' | ' + tradeview.slide + ' | ' + tradeview.vol + '$ | Live: ' + tradeview.tradetype);
-                                setTimeout(function() {
+                                setTimeout(function () {
                                     sendsms('Wait 30s ...');
                                 }, 1000);
                                 tradetime = res.d.time;
@@ -145,9 +145,9 @@ function check(tradetime, tradeview) {
 
 
     setTimeout(() => {
-        return new Promise(async function(resolve, reject) {
+        return new Promise(async function (resolve, reject) {
 
-            var getclose = setInterval(async function() {
+            var getclose = setInterval(async function () {
 
 
                 //  console.log("Check win loss" + tradetime);
@@ -208,7 +208,7 @@ function check(tradetime, tradeview) {
                             val.tradeType = tradeview.tradetype;
 
                             sendsms(sms);
-                            phantramvon = Math.round((blance * window.conf.vol.split('%')[0]) / 100, 2);
+                            phantramvon = Math.round((blance * parseInt(window.conf.vol)) / 100, 2);
                             newdata = val;
                             newdata.uuid = window.conf.uuid;
                             newdata.name = tradeview.name;
