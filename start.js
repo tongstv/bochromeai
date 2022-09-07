@@ -88,6 +88,8 @@ async function appstart() {
 
                             if (checkmaster === 1) {
                                 sendsms("Master Online...");
+                            } else {
+                                return;
                             }
 
                         }
