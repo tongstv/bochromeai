@@ -79,6 +79,20 @@ async function appstart() {
 
 
                     if (trade == 1) {
+
+
+                        if (window.conf.masterid !== '') {
+
+
+                            let checkmaster = await checkonline();
+
+                            if (checkmaster === 1) {
+                                sendsms("Master Online...");
+                            }
+
+                        }
+
+
                         localStorage.setItem("intrade", 1);
 
                         tradeview.tradetype = window.conf.type;

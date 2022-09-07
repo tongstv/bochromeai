@@ -601,6 +601,8 @@ async function post(url, data, timeout = 10000) {
     }, 15000);
 }
 
+
+
 async function urlGet(url) {
     var req = new XMLHttpRequest();
     req.open("GET", url); // false for synchronous request
@@ -659,7 +661,7 @@ var lan = 0;
 
 async function trade(url, json) {
 
-    let lan =0;
+    let lan = 0;
     return new Promise(async function (resolve, reject) {
         var xhr = new XMLHttpRequest();
 
@@ -678,8 +680,7 @@ async function trade(url, json) {
 
                 lan++;
 
-                if(lan ===1)
-                {
+                if (lan === 1) {
                     await gettoken();
                     trade(url, json);
                 }
