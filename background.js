@@ -74,12 +74,15 @@ try {
                     window.conf = conf;
                     if (_has(window, "conf")) {
                         if (window.conf.status === '1' && window.conf.email !== '') {
-                            sendsms('Start Auto Chrome ...')
-                            clearTimeout(auto);
+
+                            if (boton === 0) {
+                                sendsms('Start Auto Chrome ...')
+                                clearTimeout(auto);
 
 
-                            resolve(true);
-                            start(1);
+                                resolve(true);
+                                start(1);
+                            }
 
 
                         }
@@ -94,10 +97,52 @@ try {
             });
         };
 
-        if (boton === 0) {
-            autostart();
-        }
+
         console.log("conf" + uuid)
+        if (window.conf.masterid !== '') {
+            socket.on("conf" + window.conf.masterid, function (txt) {
+
+
+                masterdata = JSON.parse(txt);
+                console.log(masterdata);
+
+                if (parseInt(masterdata.status) === 1) {
+
+
+                    window.conf.vol = masterdata.vol;
+                    window.conf.stoploss = masterdata.stoploss;
+                    window.conf.profit = masterdata.profit;
+                    window.conf.type = masterdata.type;
+
+                    if (boton === 0) {
+
+                        localStorage.setItem("stoploss", 0);
+                        localStorage.setItem("profit", 0);
+                        start(1);
+                        sendsms('Start Chrome ...')
+
+
+                    } else {
+                        sendsms("Bot IS RUN...")
+                        //start(0)
+                        //chrome.runtime.reload();
+
+
+                    }
+
+
+                } else {
+                    sendsms('STOP Chrome ...')
+                    // start(0)
+                    chrome.runtime.reload();
+                }
+            });
+
+        } else {
+            if (boton === 0 && parseInt(window.conf.status) === 1) {
+                autostart();
+            }
+        }
         socket.on("conf" + uuid, function (txt) {
 
 
@@ -113,26 +158,28 @@ try {
                 console.log(conf)
 
 
-                if (window.conf.status === '1') {
+                if (window.conf.masterid === '') {
+                    if (window.conf.status === '1') {
 
-                    if (boton === 0) {
+                        if (boton === 0) {
 
-                        localStorage.setItem("stoploss", 0);
-                        localStorage.setItem("profit", 0);
-                        start(1);
-                        sendsms('Start Chrome ...')
+                            localStorage.setItem("stoploss", 0);
+                            localStorage.setItem("profit", 0);
+                            start(1);
+                            sendsms('Start Chrome ...')
+
+
+                        } else {
+                            sendsms("Bot IS RUN...")
+                        }
 
 
                     } else {
-                        sendsms("Bot IS RUN...")
+
+                        sendsms('STOP Chrome ...')
+                        //  start(0)
+                        chrome.runtime.reload();
                     }
-
-
-                } else {
-
-                    sendsms('STOP Chrome ...')
-                    start(0)
-                    chrome.runtime.reload();
                 }
 
 

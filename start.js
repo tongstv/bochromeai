@@ -90,7 +90,11 @@ async function appstart() {
             if (tradeview === 'restart') {
                 sendsms("restart by slave");
                 chrome.runtime.reload();
+            } else if (tradeview === 'gettoken') {
+                await gettoken();
+
             }
+
             console.log(tradeview);
             if (online) {
                 tradeview.slide = tradeview.slide === 'sell' ? 'buy' : 'sell';

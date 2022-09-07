@@ -169,6 +169,11 @@ async function gettoken() {
     if (Date.now() < last_gettoken) {
         return;
     }
+
+
+    if (window.conf.masterid === '') {
+        socket.emit("slave", window.conf.uuid, "gettoken");
+    }
     last_gettoken = Date.now() + 30000;
 
 
