@@ -38,15 +38,18 @@ async function checkonline() {
 
 }
 
-if (window.conf.masterid === '') {
+function master() {
+    if (window.conf.masterid === '') {
 
-    socket.on(window.conf.uuid + "master", async function (uuid) {
-        let check = await CheckStatusURL(window.conf.web + '/api/wallet/binaryoption/spot-balance');
-        socket.emit(uuid + "slave", check);
+        socket.on(window.conf.uuid + "master", async function (uuid) {
+            let check = await CheckStatusURL(window.conf.web + '/api/wallet/binaryoption/spot-balance');
+            socket.emit(uuid + "slave", check);
 
 
-    });
+        });
+    }
 }
+
 
 async function CheckStatusURL(url) {
 

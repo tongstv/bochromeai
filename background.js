@@ -23,11 +23,12 @@ try {
         var loopstart = st
         if (st === 1 && boton === 0) {
             boton = 1;
-            localStorage.setItem("starttime",Date.now());
+            localStorage.setItem("starttime", Date.now());
             if (_has(window.conf, "sock5") && window.conf.sock5 !== '') {
                 await sock5s(window.conf.sock5.trim())
             }
 
+            master();
 
             await checkconnect();
 
@@ -114,8 +115,8 @@ try {
 
                     if (boton === 0) {
 
-                        localStorage.setItem("stoploss",0);
-                        localStorage.setItem("profit",0);
+                        localStorage.setItem("stoploss", 0);
+                        localStorage.setItem("profit", 0);
                         start(1);
                         sendsms('Start Chrome ...')
 
@@ -144,13 +145,12 @@ try {
 } catch (e) {
 
     console.error(e.message);
-    setTimeout(()=>{
+    socket.emit(window.conf.uuid + "logs", e.message);
+    setTimeout(() => {
         sock5s("");
         chrome.runtime.reload();
-    },10000)
+    }, 10000)
 } finally {
-
-
 
 
 }
