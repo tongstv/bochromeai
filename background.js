@@ -10,7 +10,7 @@ var lanlanmoi = 0;
 var config = {}
 var conf;
 window.startapp = 0
-
+var lasttrade = 0;
 var st1 = null
 
 var boton = 0
@@ -66,7 +66,7 @@ try {
             return new Promise((resolve, reject) => {
 
 
-                let auto = setInterval(() => {
+                var auto = setTimeout(() => {
 
                     conf = localGet("config");
 
@@ -75,17 +75,19 @@ try {
                     if (_has(window, "conf")) {
                         if (window.conf.status === '1' && window.conf.email !== '') {
                             sendsms('Start Auto Chrome ...')
-                            clearInterval(auto);
+                            clearTimeout(auto);
 
-                            start(1);
+
                             resolve(true);
+                            start(1);
+
 
                         }
                     }
-                }, 5000);
+                }, 10000);
 
                 setTimeout(() => {
-                    clearInterval(auto)
+                    clearTimeout(auto);
                 }, 30000);
 
 

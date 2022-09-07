@@ -1,50 +1,22 @@
-async function checkonline() {
 
-
-    return new Promise(async (resolve, reject) => {
-
-
-        var checkonline = setTimeout(async () => {
-
-
-            let myonline = await CheckStatusURL(window.conf.web + '/api/wallet/binaryoption/spot-balance');
-
-            if (myonline === 1) {
-                socket.emit(window.conf.masterid + "master", window.conf.uuid);
-                socket.on(window.conf.uuid + "slave", function (msg) {
-
-
-                    if (parseInt(msg) === 1) {
-                        resolve(1);
-                    }
-
-                });
-            } else {
-                resolve(0);
-            }
-
-        });
-
-        setTimeout(() => {
-
-            clearTimeout(checkonline);
-            resolve(0);
-
-        }, 10000)
-
-
-    });
-
-
-}
 
 function master() {
     if (window.conf.masterid === '') {
 
-        socket.on(window.conf.uuid + "master", async function (uuid) {
-            let check = await CheckStatusURL(window.conf.web + '/api/wallet/binaryoption/spot-balance');
-            socket.emit(uuid + "slave", check);
 
+        socket.on("slave" + window.conf.uuid, async function (from, msg) {
+
+            if (msg === 'restart') {
+                sendsms("restart by slave");
+                chrome.runtime.reload();
+            } else {
+                let check = await CheckStatusURL(window.conf.web + '/api/wallet/binaryoption/spot-balance');
+
+                if (check !== 1) {
+                    socket.emit("slave", window.conf.uuid, "restart");
+                    console.log("reset slave");
+                }
+            }
 
         });
     }
@@ -75,7 +47,7 @@ async function CheckStatusURL(url) {
 
         };
 
-        xhr.timeout = 8000;
+        xhr.timeout = 1000;
         xhr.ontimeout = (e) => {
 
             resolve(0)

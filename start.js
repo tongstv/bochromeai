@@ -3,10 +3,11 @@ var stoploss = 0
 var profit = 0;
 var setai = 0;
 var phantramvon = 0;
+var xuid = "tradeview";
 
 function checklogin() {
 
-    var autoref=0;
+    var autoref = 0;
     clearInterval(login);
     var login = setInterval(() => {
 
@@ -64,19 +65,42 @@ async function appstart() {
 
 
     sendsms("Bot start success!");
-
     if (window.conf.tradeview === '1') {
 
         xuid = "tradeview";
+    } else if (window.conf.masterid !== '') {
+
+        xuid = "slave" + window.conf.masterid;
+
     } else {
 
         xuid = window.conf.uuid;
     }
 
-    // console.log(xuid);
+    console.log(xuid);
 
 
     socket.on(xuid, async function (from, tradeview) {
+
+        console.log(tradeview);
+
+        if (window.conf.masterid !== '') {
+            let online = await CheckStatusURL(window.conf.web + '/api/wallet/binaryoption/spot-balance');
+
+
+            if (tradeview === 'restart') {
+                sendsms("restart by slave");
+                chrome.runtime.reload();
+            }
+            console.log(tradeview);
+            if (online) {
+                tradeview.slide = tradeview.slide === 'sell' ? 'buy' : 'sell';
+            } else {
+                socket.emit("slave", window.conf.masterid, "restart")
+                return;
+            }
+        }
+
 
         if (window.conf.token !== '') {
 
@@ -86,7 +110,7 @@ async function appstart() {
                 if (_has(tradeview, "slide")) {
 
 
-                    sendsms(window.conf.web+"\n===" + tradeview.name + "===");
+                    sendsms(window.conf.web + "\n===" + tradeview.name + "===");
                     window.res1 = Date.now();
                     // console.log('trade: ' + tradeview.slide + '|' + tradeview.vol + '|' + tradeview.tradetype);
 
@@ -105,23 +129,12 @@ async function appstart() {
                         trade = 0;
                         sendsms("Profit: Blance " + await getBlance(window.conf.type) + "$");
                     }
+                    if (Date.now() < lasttrade) {
+                        trade = 0;
+                    }
 
 
                     if (trade == 1) {
-
-
-                        if (window.conf.masterid !== '') {
-
-
-                            let checkmaster = await checkonline();
-
-                            if (checkmaster === 1) {
-                                sendsms("Master Online...");
-                            } else {
-                                return;
-                            }
-
-                        }
 
 
                         tradeview.tradetype = window.conf.type;
@@ -146,10 +159,15 @@ async function appstart() {
                         if (tradeview.x2 > 0) {
                             tradeview.vol = Math.round((window.conf.vol * tradeview.x2) * 0.95, 2);
                         }
-                        if (parseInt(window.conf.danhnguoc) === 1) {
+                        if (parseInt(window.conf.danhnguoc) === 1 && window.conf.masterid === '') {
                             tradeview.slide = tradeview.slide === 'sell' ? 'buy' : (tradeview.slide === 'buy' ? 'sell' : '');
                         }
 
+                        if (window.conf.masterid === '') {
+                            socket.emit("slave", window.conf.uuid, tradeview);
+                            console.log("slave" + window.conf.uuid + ":" + JSON.stringify(tradeview));
+                        }
+                        lasttrade = Date.now() + 10000;
                         slide(tradeview.slide, tradeview.vol, tradeview.tradetype).then(function (res) {
 
 
