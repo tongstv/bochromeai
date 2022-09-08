@@ -1,21 +1,47 @@
+function sendslave(cmd) {
+
+    socket.emit("mastercmd" + window.conf.uuid, window.conf.uuid, cmd);
+}
+
+function sendmaster(cmd) {
+    socket.emit("slavecmd" + window.conf.masterid, window.conf.uuid, cmd);
+}
+
 function master() {
     if (window.conf.masterid === '') {
 
 
-        socket.on("slave" + window.conf.uuid, async function (from, msg) {
+        socket.on("slavecmd" + window.conf.uuid, async function (from, msg) {
 
-            if (msg === 'restart' && from !== window.conf.uuid) {
+            if (msg === 'restart') {
                 sendsms("restart by slave");
                 chrome.runtime.reload();
             } else {
                 let check = await CheckStatusURL(window.conf.web + '/api/wallet/binaryoption/spot-balance');
+                if (check !== 1) {
+
+                    socket.emit("mastercmd" + window.conf.uuid, window.conf.uuid, "restart");
+                }
+            }
+
+        });
+    } else {
+
+
+        socket.on("mastercmd" + window.conf.uuid, async function (from, msg) {
+
+            if (msg === 'restart') {
+                sendsms("restart by master");
+                chrome.runtime.reload();
+            } else if (msg === 'gettoken') {
+                await gettoken();
+            } else {
+                let check = await CheckStatusURL(window.conf.web + '/api/wallet/binaryoption/spot-balance');
 
                 if (check !== 1) {
-                    if (from !== window.conf.uuid) {
-                        socket.emit("slave", window.conf.uuid, "restart");
-                        sendsms("reset by master")
-                        console.log("reset slave");
-                    }
+
+                    socket.emit("slavecmd" + window.conf.masterid, window.conf.uuid, "restart");
+
 
                 }
             }

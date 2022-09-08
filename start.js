@@ -85,23 +85,7 @@ async function appstart() {
         console.log(tradeview);
 
         if (window.conf.masterid !== '') {
-            let online = await CheckStatusURL(window.conf.web + '/api/wallet/binaryoption/spot-balance');
-
-            if (tradeview === 'restart') {
-                sendsms("restart by master");
-                chrome.runtime.reload();
-            } else if (tradeview === 'gettoken') {
-                await gettoken();
-
-            }
-
-            console.log(tradeview);
-            if (online) {
-                tradeview.slide = tradeview.slide === 'sell' ? 'buy' : 'sell';
-            } else {
-                socket.emit("slave", window.conf.masterid, "restart")
-                return;
-            }
+            tradeview.slide = tradeview.slide === 'sell' ? 'buy' : 'sell';
         }
 
 
