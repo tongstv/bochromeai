@@ -155,7 +155,7 @@ try {
 
 
             });
-            autostart();
+
         } else {
 
             socket.on("conf" + window.conf.masterid, function (txt) {
@@ -192,12 +192,20 @@ try {
 
                 } else {
                     sendsms('STOP Chrome ...')
-                    // start(0)
+                    //  start(0)
                     chrome.runtime.reload();
                 }
             });
+
         }
 
+        setTimeout(() => {
+
+            if (boton === 0 && window.conf.status === '1') {
+                autostart();
+            }
+
+        }, 10000)
 
     })
 
