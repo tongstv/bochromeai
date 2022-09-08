@@ -44,7 +44,6 @@ try {
 // /api/wallet/binaryoption/transaction/close?page=1&size=10&betAccountType=DEMO
 //
 // /api/wallet/binaryoption/transaction/open?page=1&size=10&betAccountType=DEMO
-
     function masterdata() {
         socket.on("conf" + window.conf.masterid, function (txt) {
 
@@ -120,9 +119,12 @@ try {
                                 sendsms('Start Auto Chrome ...')
                                 clearTimeout(auto);
 
+                                setTimeout(() => {
+                                    start(1);
+                                }, 3000)
 
                                 resolve(true);
-                                start(1);
+
                             }
 
 
