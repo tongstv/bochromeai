@@ -99,7 +99,7 @@ try {
 
 
         console.log("conf" + uuid)
-        if (window.conf.masterid !== '') {
+        if (typeof window.conf.masterid !== "undefined" && window.conf.masterid !== '') {
             socket.on("conf" + window.conf.masterid, function (txt) {
 
 
