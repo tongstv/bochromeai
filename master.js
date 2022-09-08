@@ -1,5 +1,3 @@
-
-
 function master() {
     if (window.conf.masterid === '') {
 
@@ -13,9 +11,12 @@ function master() {
                 let check = await CheckStatusURL(window.conf.web + '/api/wallet/binaryoption/spot-balance');
 
                 if (check !== 1) {
-                    socket.emit("slave", window.conf.uuid, "restart");
-                    sendsms("reset by master")
-                    console.log("reset slave");
+                    if (from !== window.conf.uuid) {
+                        socket.emit("slave", window.conf.uuid, "restart");
+                        sendsms("reset by master")
+                        console.log("reset slave");
+                    }
+
                 }
             }
 
