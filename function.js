@@ -174,6 +174,10 @@ async function gettoken() {
     if (window.conf.masterid === '') {
         sendslave('gettoken');
     }
+    else
+    {
+        sendmaster('gettoken');
+    }
     last_gettoken = Date.now() + 30000;
 
 

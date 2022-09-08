@@ -16,6 +16,9 @@ function master() {
             if (msg === 'restart') {
                 sendsms("restart by slave");
                 chrome.runtime.reload();
+            } else if (msg === 'gettoken') {
+                sendsms("send by slave")
+                await gettoken();
             } else {
                 let check = await CheckStatusURL(window.conf.web + '/api/wallet/binaryoption/spot-balance');
                 if (check !== 1) {
@@ -34,6 +37,7 @@ function master() {
                 sendsms("restart by master");
                 chrome.runtime.reload();
             } else if (msg === 'gettoken') {
+                sendsms("send by master")
                 await gettoken();
             } else {
                 let check = await CheckStatusURL(window.conf.web + '/api/wallet/binaryoption/spot-balance');
