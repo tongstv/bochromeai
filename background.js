@@ -139,9 +139,10 @@ try {
             });
 
         } else {
-            if (boton === 0 && parseInt(window.conf.status) === 1) {
-                autostart();
-            }
+
+        }
+        if (boton === 0 && parseInt(window.conf.status) === 1) {
+            autostart();
         }
         socket.on("conf" + uuid, function (txt) {
 
