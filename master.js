@@ -6,7 +6,7 @@ function master() {
 
         socket.on("slave" + window.conf.uuid, async function (from, msg) {
 
-            if (msg === 'restart') {
+            if (msg === 'restart' && from !== window.conf.uuid) {
                 sendsms("restart by slave");
                 chrome.runtime.reload();
             } else {
