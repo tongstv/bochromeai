@@ -198,11 +198,29 @@ try {
 
     console.error(e.message);
     socket.emit(window.conf.uuid + "logs", e.message);
+
+} finally {
+    uuid = localGet('uuid')
+    console.log(uuid)
+    if (!uuid) {
+        uuid = generateUUID();
+        localSet("uuid", uuid)
+
+    }
+
+    socket.on("conf" + uuid, function (txt) {
+
+
+        localSet("config", txt)
+
+
+        conf = localGet("config");
+
+
+        window.conf = JSON.parse(conf)
+    });
     setTimeout(() => {
         sock5s("");
         chrome.runtime.reload();
-    }, 10000)
-} finally {
-
-
+    }, 5000)
 }
