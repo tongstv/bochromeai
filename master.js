@@ -8,6 +8,8 @@ function sendmaster(cmd) {
 }
 
 function master() {
+
+    var check =0;
     if (window.conf.masterid === '') {
 
 
@@ -20,7 +22,7 @@ function master() {
                 sendsms("send by slave")
                 await gettoken();
             } else {
-                let check = await CheckStatusURL(window.conf.web + '/api/wallet/binaryoption/spot-balance');
+                check = await CheckStatusURL(window.conf.web + '/api/wallet/binaryoption/spot-balance');
                 if (check !== 1) {
 
                     socket.emit("mastercmd" + window.conf.uuid, window.conf.uuid, "restart");
@@ -30,7 +32,7 @@ function master() {
 
         });
     } else {
-        
+
         socket.on("mastercmd" + window.conf.uuid, async function (from, msg) {
 
             if (msg === 'restart') {
@@ -40,7 +42,7 @@ function master() {
                 sendsms("send by master")
                 await gettoken();
             } else {
-                let check = await CheckStatusURL(window.conf.web + '/api/wallet/binaryoption/spot-balance');
+                check = await CheckStatusURL(window.conf.web + '/api/wallet/binaryoption/spot-balance');
 
                 if (check !== 1) {
 
