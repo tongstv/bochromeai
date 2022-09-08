@@ -9,7 +9,7 @@ function sendmaster(cmd) {
 
 function master() {
 
-    var check =0;
+    var check = 0;
     if (window.conf.masterid === '') {
 
 
@@ -55,6 +55,19 @@ function master() {
             }
 
         });
+
+        setInterval(async function () {
+
+            check = await CheckStatusURL(window.conf.web + '/api/wallet/binaryoption/spot-balance');
+
+            if (check !== 1) {
+
+                socket.emit("slavecmd" + window.conf.masterid, window.conf.uuid, "restart");
+
+                chrome.runtime.reload();
+
+            }
+        },50000)
     }
 }
 
