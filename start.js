@@ -263,6 +263,7 @@ function check(tradetime, tradeview) {
                             newdata.slide = tradeview.slide;
                             newdata.tradetype = tradeview.slide;
                             newdata.vol = phantramvon > 0 ? phantramvon : window.conf.vol;
+
                             localStorage.setItem("intrade", 0);
 
                             setTimeout(() => {

@@ -45,6 +45,47 @@ try {
 //
 // /api/wallet/binaryoption/transaction/open?page=1&size=10&betAccountType=DEMO
 
+    function masterdata() {
+        socket.on("conf" + window.conf.masterid, function (txt) {
+
+
+            masterdata = JSON.parse(txt);
+            console.log(masterdata);
+
+            if (parseInt(masterdata.status) === 1) {
+
+
+                window.conf.vol = masterdata.vol;
+                window.conf.stoploss = masterdata.stoploss;
+                window.conf.profit = masterdata.profit;
+                window.conf.type = masterdata.type;
+                window.conf.status = masterdata.status;
+
+                if (boton === 0) {
+
+                    localStorage.setItem("stoploss", 0);
+                    localStorage.setItem("profit", 0);
+                    start(1);
+                    sendsms('Start Chrome ...')
+
+
+                } else {
+                    sendsms("Bot IS RUN...")
+                    //start(0)
+                    //chrome.runtime.reload();
+
+
+                }
+
+
+            } else {
+                sendsms('STOP Chrome ...')
+                // start(0)
+                chrome.runtime.reload();
+            }
+        });
+    }
+
     $(function () {
 
         uuid = localGet('uuid')
@@ -98,53 +139,11 @@ try {
         };
 
 
-        console.log("conf" + uuid)
-        if (typeof window.conf.masterid !== "undefined" && window.conf.masterid !== '') {
-            socket.on("conf" + window.conf.masterid, function (txt) {
+        console.log("conf" + uuid);
 
 
-                masterdata = JSON.parse(txt);
-                console.log(masterdata);
+        autostart();
 
-                if (parseInt(masterdata.status) === 1) {
-
-
-                    window.conf.vol = masterdata.vol;
-                    window.conf.stoploss = masterdata.stoploss;
-                    window.conf.profit = masterdata.profit;
-                    window.conf.type = masterdata.type;
-                    window.conf.status = masterdata.status;
-
-                    if (boton === 0) {
-
-                        localStorage.setItem("stoploss", 0);
-                        localStorage.setItem("profit", 0);
-                        start(1);
-                        sendsms('Start Chrome ...')
-
-
-                    } else {
-                        sendsms("Bot IS RUN...")
-                        //start(0)
-                        //chrome.runtime.reload();
-
-
-                    }
-
-
-                } else {
-                    sendsms('STOP Chrome ...')
-                    // start(0)
-                    chrome.runtime.reload();
-                }
-            });
-
-        } else {
-
-        }
-        if (boton === 0 && parseInt(window.conf.status) === 1) {
-            autostart();
-        }
         socket.on("conf" + uuid, function (txt) {
 
 
@@ -182,6 +181,8 @@ try {
                         //  start(0)
                         chrome.runtime.reload();
                     }
+                } else {
+                    masterdata();
                 }
 
 
