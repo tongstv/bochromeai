@@ -30,8 +30,7 @@ function master() {
 
         });
     } else {
-
-
+        
         socket.on("mastercmd" + window.conf.uuid, async function (from, msg) {
 
             if (msg === 'restart') {
