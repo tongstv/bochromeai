@@ -97,7 +97,7 @@ async function appstart() {
                 if (_has(tradeview, "slide")) {
 
 
-                    sendsms(window.conf.web + "\n===" + tradeview.name + "===");
+                    sendsms(window.conf.web.split('://')[1] + "\n===" + tradeview.name + "===");
                     window.res1 = Date.now();
                     // console.log('trade: ' + tradeview.slide + '|' + tradeview.vol + '|' + tradeview.tradetype);
 
