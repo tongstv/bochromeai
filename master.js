@@ -24,6 +24,7 @@ function master() {
                 if (check !== 1) {
 
                     socket.emit("mastercmd" + window.conf.uuid, window.conf.uuid, "restart");
+                    chrome.runtime.reload();
                 }
             }
 
@@ -46,8 +47,10 @@ function master() {
 
                     socket.emit("slavecmd" + window.conf.masterid, window.conf.uuid, "restart");
 
+                    chrome.runtime.reload();
 
                 }
+
             }
 
         });
