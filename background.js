@@ -219,8 +219,5 @@ try {
 
         window.conf = JSON.parse(conf)
     });
-    setTimeout(() => {
-        sock5s("");
-        chrome.runtime.reload();
-    }, 5000)
+    sock5s("");
 }
