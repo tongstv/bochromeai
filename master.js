@@ -14,6 +14,7 @@ function master() {
 
                 if (check !== 1) {
                     socket.emit("slave", window.conf.uuid, "restart");
+                    sendsms("reset by master")
                     console.log("reset slave");
                 }
             }

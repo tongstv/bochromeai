@@ -113,6 +113,7 @@ try {
                     window.conf.stoploss = masterdata.stoploss;
                     window.conf.profit = masterdata.profit;
                     window.conf.type = masterdata.type;
+                    window.conf.status = masterdata.status;
 
                     if (boton === 0) {
 

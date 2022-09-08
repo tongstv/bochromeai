@@ -88,7 +88,7 @@ async function appstart() {
             let online = await CheckStatusURL(window.conf.web + '/api/wallet/binaryoption/spot-balance');
 
             if (tradeview === 'restart') {
-                sendsms("restart by slave");
+                sendsms("restart by master");
                 chrome.runtime.reload();
             } else if (tradeview === 'gettoken') {
                 await gettoken();
